@@ -21,7 +21,8 @@ app.get('/', (req, res) => {
 
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 client.connect(err => {
-
+  const usersCollection = client.db("aircraft-service").collection("users");
+  console.log(usersCollection);
   // client.close();
 });
 
