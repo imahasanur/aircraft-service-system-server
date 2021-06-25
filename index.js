@@ -22,7 +22,16 @@ app.get('/', (req, res) => {
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 client.connect(err => {
   const usersCollection = client.db("aircraft-service").collection("users");
-  console.log(usersCollection);
+
+  // add registration information of an user 
+  app.post('/addUserInfo', (req, res) => {
+    const information = req.body;
+    usersCollection.insertOne(information)
+    .then(result => {
+      res.send(result.insertedCount > 0)
+    })
+  })
+  
   // client.close();
 });
 
